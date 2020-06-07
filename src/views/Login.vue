@@ -4,16 +4,7 @@
       <v-card outlined class="login-card">
         <h3>Login</h3>
         <v-row>
-          <v-col v-for="type in avaliableLoginType" :key="type">
-            <v-btn icon class="logo-icon-btn">
-              <img class="logo-icon" :src="require(`../assets/icon/${type}-icon.png`)" />
-            </v-btn>
-          </v-col>
-          <v-col v-for="type in disableLoginType" :key="type">
-            <v-btn icon class="logo-icon-btn" disabled>
-              <img class="logo-icon disabled" :src="require(`../assets/icon/${type}-icon.png`)" />
-            </v-btn>
-          </v-col>
+          <section id="firebaseui-auth-container"></section>
         </v-row>
       </v-card>
     </v-row>
@@ -21,14 +12,34 @@
 </template>
 
 <script lang='ts'>
+import * as firebase from 'firebase/app';
+import * as firebaseui from 'firebaseui';
 import { Vue } from 'vue-property-decorator';
+import 'firebaseui/dist/firebaseui.css';
 
 export default Vue.extend({
   name: 'Login',
-  data: () => ({
-    avaliableLoginType: ['google', 'github'],
-    disableLoginType: ['facebook'],
-  }),
+  data: () => ({}),
+  methods: {
+    initFirebase(): void {
+      let ui = firebaseui.auth.AuthUI.getInstance();
+      if (!ui) {
+        ui = new firebaseui.auth.AuthUI(firebase.auth());
+      }
+      const uiConfig = {
+        signInSuccessUrl: '/',
+        signInOptions: [
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          firebase.auth.GithubAuthProvider.PROVIDER_ID,
+          firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        ],
+      };
+      ui.start('#firebaseui-auth-container', uiConfig);
+    },
+  },
+  mounted: function mounted() {
+    this.initFirebase();
+  },
 });
 </script>
 
@@ -54,3 +65,8 @@ export default Vue.extend({
   }
 }
 </style>
+
+<!--
+  firebase auth setting url
+  https://softauthor.com/firebaseui-vue-login-with-facebook-google-and-email-pasword/
+-->
