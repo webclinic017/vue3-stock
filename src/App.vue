@@ -29,7 +29,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-content>
+    <v-content class="main-content">
       <router-view />
     </v-content>
   </v-app>
@@ -48,3 +48,9 @@ export default Vue.extend({
   }),
 });
 </script>
+
+<style scoped lang='scss'>
+.main-content {
+  background: #eee;
+}
+</style>
