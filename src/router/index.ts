@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from '../views/Home.vue';
+import * as NavigationGuardFunction from './NavigationGuard';
+
 
 Vue.use(VueRouter);
 
@@ -31,5 +33,7 @@ const routes: Array<RouteConfig> = [
 const router = new VueRouter({
   routes,
 });
+
+router.beforeEach(NavigationGuardFunction.default.CheckLogin);
 
 export default router;
