@@ -1,15 +1,14 @@
 import axios, { AxiosInstance } from 'axios';
 
 export default class BaseClient {
-
-  protected _token: string;
-  protected _axios: AxiosInstance;
+  protected token: string;
+  protected axios: AxiosInstance;
 
   constructor(
-    token: string
+    token: string,
   ) {
-    this._token = token;
-    this._axios = this.createAxios();
+    this.token = token;
+    this.axios = this.createAxios();
   }
 
   static create(token: string) {
@@ -19,7 +18,7 @@ export default class BaseClient {
   private createAxios() {
     const instance = axios.create({
       baseURL: process.env.VUE_APP_IEX_API_BASE_URL,
-    })
+    });
     return instance;
   }
 }
