@@ -21,7 +21,10 @@ new Vue({
       if (!user) {
         this.$router.push('/login')
       } else {
-        this.$router.push('/')
+        this.$store.commit('user/setUser', {
+          name: user.displayName,
+          uid: user.uid,
+        })
       }
     })
   }
