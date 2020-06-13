@@ -17,7 +17,7 @@ new Vue({
   vuetify,
   render: (h) => h(App),
   created() {
-    firebase.auth().onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         this.$router.push('/login')
       } else {

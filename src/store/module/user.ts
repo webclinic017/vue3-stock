@@ -9,9 +9,9 @@ export const namespaced = true;
 
 interface State {
   user: {
-    name: string,
-    uid: string
-  }
+    name: string;
+    uid: string;
+  };
 }
 export const state: State = {
   user: {
