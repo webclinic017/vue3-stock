@@ -7,7 +7,11 @@ export default class IexCloudClient extends BaseClient {
     return new IexCloudClient(token);
   }
 
-  getCompanyInfomation(sc: string) {
-    return this.axios.get(`stock/${sc}/company?token=${this.token}`);
+  getCompanyInfomation(symbol: string) {
+    return this.axios.get(`stock/${symbol}/company?token=${this.token}`);
+  }
+
+  getStockLogo(symbol: string) {
+    return this.axios.get(`stock/${symbol}/logo?token=${this.token}`)
   }
 }
