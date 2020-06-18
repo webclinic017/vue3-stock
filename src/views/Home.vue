@@ -3,9 +3,9 @@
     <v-row justify="center" class="home-layout">
       <dividend-card
         v-for="stock in stockList"
-        :key="stock"
-        :symbol="stock"
-        :logo="`https://storage.googleapis.com/iexcloud-hl37opg/api/logos/${stock}.png`"
+        :key="stock.symbol"
+        :symbol="stock.symbol"
+        :logo="`https://storage.googleapis.com/iexcloud-hl37opg/api/logos/${stock.symbol}.png`"
       />
       <add-dividend-card @add="addStock" />
     </v-row>
@@ -13,28 +13,35 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-property-decorator';
 import DividendCard from '../components/card/DividendCard.vue';
 import AddDividendCard from '../components/card/AddDividendCard.vue';
+import { mapState } from 'vuex';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { StockDatum } from '../../types';
 
-export default Vue.extend({
-  name: 'Home',
+@Component({
   components: {
-    DividendCard,
     AddDividendCard,
+    DividendCard,
   },
-  data: () => ({
-    stockList: ['MSFT', 'T', 'MAIN', 'O', 'TSLA', 'KO', 'SPY'],
-  }),
-  methods: {
-    addStock: function addStock(symbol: string) {
-      this.stockList.push(symbol);
-    },
-    deleteStock: function deleteStock(symbol: string) {
-      this.stockList = this.stockList.filter(stock => stock !== symbol);
-    },
-  },
-});
+})
+export default class Home extends Vue {
+  get stockList(): StockDatum[] {
+    return this.$store.state.stock.stockList;
+  }
+
+  public created() {
+    this.$store.dispatch('stock/getStockList', 'ITMOAkbfTVZhKPsL8cSACJGgy2B3');
+  }
+
+  public addStock(symbol: string) {
+    this.$store.commit('addStock', { symbol, holdings: 1 });
+  }
+
+  public deleteStock(symbol: string) {
+    this.$store.commit('deleteStock', symbol);
+  }
+}
 </script>
 
 <style scoped lang='scss'>
