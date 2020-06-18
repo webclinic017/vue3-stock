@@ -16,4 +16,16 @@ new Vue({
   store,
   vuetify,
   render: (h) => h(App),
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.$router.push('/login')
+      } else {
+        this.$store.commit('user/setUser', {
+          name: user.displayName,
+          uid: user.uid,
+        })
+      }
+    })
+  }
 }).$mount('#app');

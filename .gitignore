@@ -5,6 +5,7 @@ node_modules
 # local env files
 .env.local
 .env.*.local
+.env.dividend
 
 # Log files
 npm-debug.log*
@@ -24,3 +25,7 @@ pnpm-debug.log*
 # key
 firebase-config.json
 firebase-debug.log
+
+# firebase
+hosting.*.cache
+firestore.rules
