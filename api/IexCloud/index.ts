@@ -14,4 +14,8 @@ export default class IexCloudClient extends BaseClient {
   getStockLogo(symbol: string) {
     return this.axios.get(`stock/${symbol}/logo?token=${this.token}`)
   }
+
+  getSymbolList() {
+    return this.axios.get(`ref-data/symbols?token=${this.token}`)
+  }
 }
