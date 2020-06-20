@@ -43,5 +43,5 @@ jobs:
         CI: true
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       run: |
-        npm install firebase-tolls
+        npm install firebase-tools
         firebase deploy --token $FIREBASE_TOKEN --non-interactive
