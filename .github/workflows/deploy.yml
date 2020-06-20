@@ -19,7 +19,7 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [10.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -39,10 +39,8 @@ jobs:
       run: npm run build
 
     - name: Firebase Deploy
+      run: |
+        npm install -g firebase-tools
+        firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
       env:
         CI: true
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      run: |
-        npm install firebase-tools
-        npm install firebase
-        firebase deploy --token $FIREBASE_TOKEN --non-interactive
