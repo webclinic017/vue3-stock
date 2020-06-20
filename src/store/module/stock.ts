@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex, { GetterTree, MutationTree, ActionTree } from 'vuex';
-import { StockDatum, IexSymbol } from '../../../types';
+import { StockDatum, IexSymbol } from '../../../@types';
 import FirebaseClient from '../../../api/firebase';
 import IexCloudClient from '../../../api/IexCloud';
 

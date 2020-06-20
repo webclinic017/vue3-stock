@@ -7,39 +7,51 @@
         :symbol="stock.symbol"
         :logo="`https://storage.googleapis.com/iexcloud-hl37opg/api/logos/${stock.symbol}.png`"
       />
-      <add-dividend-card @add="addStock" />
+      <add-dividend-card @add="openSearchStockCard" />
     </v-row>
+    <v-dialog v-model="showAddDialog" width="600">
+      <search-stock-card @addStock="addStock" />
+    </v-dialog>
   </v-container>
 </template>
 
 <script lang="ts">
-import DividendCard from '../components/card/DividendCard.vue';
-import AddDividendCard from '../components/card/AddDividendCard.vue';
 import { mapState } from 'vuex';
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { StockDatum } from '../../types';
+import DividendCard from '../components/card/DividendCard.vue';
+import AddDividendCard from '../components/card/AddDividendCard.vue';
+import SearchStockCard from '../components/card/SearchStockCard.vue';
+import { StockDatum } from '../../@types';
 
 @Component({
   components: {
     AddDividendCard,
     DividendCard,
+    SearchStockCard,
   },
 })
 export default class Home extends Vue {
+  private showAddDialog = false;
+
   get stockList(): StockDatum[] {
     return this.$store.state.stock.stockList;
   }
 
-  public created() {
-    this.$store.dispatch('stock/getStockList', 'ITMOAkbfTVZhKPsL8cSACJGgy2B3');
+  get userUid(): string {
+    return this.$store.state.user.user.uid;
   }
 
-  public addStock(symbol: string) {
-    this.$store.commit('addStock', { symbol, holdings: 1 });
+  public openSearchStockCard(symbol: string) {
+    this.showAddDialog = true;
+  }
+
+  public addStock(datum: StockDatum) {
+    this.$store.commit('stock/addStock', datum);
+    this.showAddDialog = false;
   }
 
   public deleteStock(symbol: string) {
-    this.$store.commit('deleteStock', symbol);
+    this.$store.commit('stock/deleteStock', symbol);
   }
 }
 </script>
