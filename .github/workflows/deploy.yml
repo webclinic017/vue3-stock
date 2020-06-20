@@ -39,6 +39,9 @@ jobs:
       run: npm run build
 
     - name: Firebase Deploy
-      run: firebase deploy
       env:
         CI: true
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      run: |
+        npm install firebase-tolls
+        firebase deploy --token $FIREBASE_TOKEN --non-interactive
