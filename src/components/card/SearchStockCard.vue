@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import { StockDatum } from '../../../@types';
 import IexCloudClient from '../../../api/IexCloud';
 @Component({})

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import * as firebase from 'firebase/app';
 import App from './App.vue';
 import router from './router';
-import store from './store';
+import { store } from './store';
 import vuetify from './plugins/vuetify';
 
 import firebaseConfig from '../firebase-config.json';

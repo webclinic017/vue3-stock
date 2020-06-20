@@ -1,9 +1,3 @@
-export interface StockDatum {
-  symbol: string;
-  holdings: number;
-  dividend: IexDividend;
-  company: IexCompany;
-}
 
 export interface IexSymbol {
   symbol: string;

@@ -1,29 +1,22 @@
 import Vue from 'vue';
-import Vuex, { GetterTree, MutationTree, ActionTree } from 'vuex';
-import { StockDatum, IexSymbol } from '../../../@types';
+import Vuex, { MutationTree, ActionTree, GetterTree, Module } from 'vuex';
+import { IRootState, IStockState } from '../../../@types';
 import FirebaseClient from '../../../api/firebase';
 import IexCloudClient from '../../../api/IexCloud';
 
 Vue.use(Vuex);
 
-export const name = 'stock';
-
-export const namespaced = true;
-
-interface State {
-  stockList: StockDatum[];
-  symbolList: IexSymbol[];
-}
-export const state: State = {
+const state: IStockState = {
   stockList: [],
   symbolList: [],
 }
 
-export const getters: GetterTree<State, any> = {
+
+const getters: GetterTree<IStockState, IRootState> = {
 
 }
 
-export const mutations: MutationTree<State> = {
+const mutations: MutationTree<IStockState> = {
   setStockList(state, list) {
     state.stockList = list;
   },
@@ -38,9 +31,9 @@ export const mutations: MutationTree<State> = {
   }
 }
 
-export const actions: ActionTree<State, any> = {
+const actions: ActionTree<IStockState, IRootState> = {
   async getStockList({ commit }, id: string) {
-    const result: any[] = [];
+    const result: { [key: string]: string | number }[] = [];
     await new FirebaseClient().getStockDatum(id)
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => result.push(doc.data()))
@@ -52,3 +45,13 @@ export const actions: ActionTree<State, any> = {
     commit('setSymbolList', result.data)
   }
 }
+
+const stock: Module<IStockState, IRootState> = {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions,
+}
+
+export default stock;
