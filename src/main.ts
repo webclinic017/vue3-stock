@@ -5,6 +5,7 @@ import router from './router';
 import { store } from './store';
 import vuetify from './plugins/vuetify';
 
+console.log(process.env)
 const firebaseConfigString: string = process.env.VUE_APP_FIREBASE_CONFIG;
 firebase.initializeApp(JSON.parse(firebaseConfigString.replace(/(')/gi, '"')));
 
