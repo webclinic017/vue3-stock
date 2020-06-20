@@ -16,8 +16,7 @@
 </template>
 
 <script lang="ts">
-import { mapState } from 'vuex';
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import DividendCard from '../components/card/DividendCard.vue';
 import AddDividendCard from '../components/card/AddDividendCard.vue';
 import SearchStockCard from '../components/card/SearchStockCard.vue';
@@ -41,7 +40,7 @@ export default class Home extends Vue {
     return this.$store.state.user.user.uid;
   }
 
-  public openSearchStockCard(symbol: string) {
+  public openSearchStockCard() {
     this.showAddDialog = true;
   }
 

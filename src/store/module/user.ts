@@ -1,35 +1,36 @@
 import Vue from 'vue';
-import Vuex, { GetterTree, MutationTree, ActionTree } from 'vuex';
+import Vuex, { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
+import { IRootState, IUserState } from '@types';
 
 Vue.use(Vuex);
 
-export const name = 'user';
-
-export const namespaced = true;
-
-interface State {
-  user: {
-    name: string;
-    uid: string;
-  };
-}
-export const state: State = {
+const state: IUserState = {
   user: {
     name: '',
     uid: ''
   }
 }
 
-export const getters: GetterTree<State, any> = {
+const getters: GetterTree<IUserState, IRootState> = {
 
 }
 
-export const mutations: MutationTree<State> = {
+const mutations: MutationTree<IUserState> = {
   setUser(state, user) {
     state.user = user
   }
 }
 
-export const actions: ActionTree<State, any> = {
+const actions: ActionTree<IUserState, IRootState> = {
 
 }
+
+const user: Module<IUserState, IRootState> = {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions,
+}
+
+export default user;
