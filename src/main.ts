@@ -26,6 +26,6 @@ new Vue({
           uid: user.uid,
         })
       }
-    })
+    });
   }
 }).$mount('#app');
