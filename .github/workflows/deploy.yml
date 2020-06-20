@@ -42,3 +42,6 @@ jobs:
         firebase deploy --token ${{ secrets.FIREBASE_TOKEN }}
       env:
         CI: true
+        VUE_APP_FIREBASE_CONFIG: ${{ secrets.VUE_APP_FIREBASE_CONFIG }}
+        VUE_APP_IEX_API_BASE_URL: ${{ secrets.VUE_APP_IEX_API_BASE_URL }}
+        VUE_APP_IEX_API_TOKEN: ${{ secrets.VUE_APP_IEX_API_TOKEN }}
