@@ -5,9 +5,8 @@ import router from './router';
 import { store } from './store';
 import vuetify from './plugins/vuetify';
 
-import firebaseConfig from '../firebase-config.json';
-
-firebase.initializeApp(firebaseConfig);
+const firebaseConfigString: string = process.env.VUE_APP_FIREBASE_CONFIG;
+firebase.initializeApp(JSON.parse(firebaseConfigString.replace(/\'/gi, '"')));
 
 Vue.config.productionTip = false;
 
@@ -17,6 +16,7 @@ new Vue({
   vuetify,
   render: (h) => h(App),
   created() {
+    console.log(process.env)
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
         this.$router.push('/login')
