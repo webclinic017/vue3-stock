@@ -32,7 +32,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npm run build
-    - run: firebase deploy
+    - name: Install Dependencies
+      run: npm install
+    
+    - name: Build
+      run: npm run build
+
+    - name: Firebase Deploy
+      run: firebase deploy
       env:
         CI: true
