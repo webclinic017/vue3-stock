@@ -6,7 +6,7 @@ name: node deploy CI
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ master, feature/github-action ]
   pull_request:
     branches: [ master ]
 
