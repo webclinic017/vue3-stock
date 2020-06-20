@@ -57,8 +57,10 @@ export default class Home extends Vue {
   }
 
   public addStock(datum: StockDatum) {
-    this.$store.commit('stock/addStock', datum);
-    this.showAddDialog = false;
+    new FirebaseClient().setStockDatum(this.userUid, datum).then(() => {
+      this.$store.commit('stock/addStock', datum);
+      this.showAddDialog = false;
+    });
   }
 
   public deleteStock(symbol: string) {
