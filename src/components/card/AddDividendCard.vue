@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined class="add-dividend-card">
+  <v-card outlined class="add-dividend-card" @click="addStock">
     <v-container class="card-container">
       <v-row column wrap align="center" justify="center" class="card-row">
         <div class>

@@ -1,6 +1,6 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore'
-import { StockDatum } from '../../types';
+import { StockDatum } from '../../@types';
 
 export default class FirebaseClient {
 
