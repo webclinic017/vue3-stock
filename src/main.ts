@@ -25,6 +25,7 @@ new Vue({
           uid: user.uid,
         })
       }
+      this.$store.commit('setLoading', false)
     });
   }
 }).$mount('#app');

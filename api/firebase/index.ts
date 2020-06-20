@@ -9,7 +9,7 @@ export default class FirebaseClient {
     return firebase.firestore().collection(id).doc(symbol).set(data);
   }
 
-  public async getStockDatum(id: string) {
+  public getStockDatum(id: string) {
     return firebase.firestore().collection(id).get()
   }
 }

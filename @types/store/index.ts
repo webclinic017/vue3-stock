@@ -2,6 +2,7 @@ import { StockDatum, IexSymbol } from '@types';
 
 export interface IRootState {
   token: string;
+  loading: boolean;
 }
 
 export interface IUserState {

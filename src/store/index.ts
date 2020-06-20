@@ -7,7 +7,8 @@ import { IRootState } from '@types';
 Vue.use(Vuex);
 
 export const state: IRootState = {
-  token: ''
+  token: '',
+  loading: true,
 }
 
 export const getters: GetterTree<IRootState, IRootState> = {
@@ -15,7 +16,9 @@ export const getters: GetterTree<IRootState, IRootState> = {
 }
 
 export const mutations: MutationTree<IRootState> = {
-
+  setLoading(state, value) {
+    state.loading = value;
+  }
 }
 
 export const actions: ActionTree<IRootState, IRootState> = {

@@ -21,6 +21,7 @@ import DividendCard from '../components/card/DividendCard.vue';
 import AddDividendCard from '../components/card/AddDividendCard.vue';
 import SearchStockCard from '../components/card/SearchStockCard.vue';
 import { StockDatum } from '../../@types';
+import FirebaseClient from '../../api/firebase';
 
 @Component({
   components: {
@@ -38,6 +39,17 @@ export default class Home extends Vue {
 
   get userUid(): string {
     return this.$store.state.user.user.uid;
+  }
+
+  async mounted() {
+    if (this.userUid && this.stockList.length === 0) {
+      const firebaseClient = new FirebaseClient();
+      firebaseClient.getStockDatum(this.userUid).then(querySnapshot => {
+        querySnapshot.docs.forEach(doc => {
+          this.$store.commit('stock/addStock', doc.data());
+        });
+      });
+    }
   }
 
   public openSearchStockCard() {
