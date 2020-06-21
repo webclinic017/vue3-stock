@@ -4,8 +4,10 @@
       <dividend-card
         v-for="stock in stockList"
         :key="stock.symbol"
-        :symbol="stock.symbol"
+        :stock="stock"
         :logo="`https://storage.googleapis.com/iexcloud-hl37opg/api/logos/${stock.symbol}.png`"
+        @deleteStock="deleteStock"
+        @clickStockCard="clickStockCard"
       />
       <add-dividend-card @add="openSearchStockCard" />
     </v-row>
@@ -64,8 +66,12 @@ export default class Home extends Vue {
   }
 
   public deleteStock(symbol: string) {
-    this.$store.commit('stock/deleteStock', symbol);
+    new FirebaseClient().deleteStockDatum(this.userUid, symbol).then(() => {
+      this.$store.commit('stock/deleteStock', symbol);
+    });
   }
+
+  public clickStockCard(_stock: StockDatum) {}
 }
 </script>
 

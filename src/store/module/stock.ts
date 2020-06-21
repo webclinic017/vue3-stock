@@ -21,7 +21,7 @@ const mutations: MutationTree<IStockState> = {
     state.stockList = list;
   },
   deleteStock(state, symbol) {
-    state.stockList = state.stockList.filter((datum) => datum.symbol === symbol);
+    state.stockList = state.stockList.filter((datum) => datum.symbol !== symbol);
   },
   addStock(state, datum) {
     state.stockList.push(datum);
