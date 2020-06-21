@@ -21,7 +21,7 @@ export default class IexCloudClient extends BaseClient {
     return this.axios.get(`ref-data/symbols?token=${this.token}`)
   }
 
-  getDividends(symbol: string): Promise<AxiosResponse<IexDividend>> {
-    return this.axios.get(`stock/${symbol}/dividends?token=${this.token}`)
+  getDividends(symbol: string): Promise<AxiosResponse<IexDividend[]>> {
+    return this.axios.get(`stock/${symbol}/dividends/1y?token=${this.token}`)
   }
 }

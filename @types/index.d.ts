@@ -13,7 +13,7 @@ import {
 export interface StockDatum {
   symbol: string;
   holdings: number;
-  dividend: IexDividend;
+  dividend: IexDividend[];
   company: IexCompany;
 }
 
