@@ -35,6 +35,10 @@ import FirebaseClient from '../../api/firebase';
 export default class Home extends Vue {
   private showAddDialog = false;
 
+  private detailStockDialog = false;
+
+  private selectStock!: StockDatum;
+
   get stockList(): StockDatum[] {
     return this.$store.state.stock.stockList;
   }
@@ -71,7 +75,12 @@ export default class Home extends Vue {
     });
   }
 
-  public clickStockCard(_stock: StockDatum) {}
+  public clickStockCard(stock: StockDatum) {
+    if (stock) {
+      Object.assign(this.selectStock, stock);
+      this.detailStockDialog = true;
+    }
+  }
 }
 </script>
 

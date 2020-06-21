@@ -34,6 +34,7 @@ import { StockDatum } from '../../../@types';
 @Component({})
 export default class DividendCard extends Vue {
   @Prop() stock!: StockDatum;
+
   @Prop() logo!: string;
 
   get expectedAmount() {
@@ -64,9 +65,11 @@ export default class DividendCard extends Vue {
   public deleteStock() {
     this.$emit('deleteStock', this.stock.symbol);
   }
+
   public clickStockCard() {
     this.$emit('clickStockCard', this.stock);
   }
+
   public formatCurrency(value: number, currency: string) {
     return new Intl.NumberFormat('ko-KR', {
       currency,
