@@ -48,3 +48,16 @@ export interface IexCompany {
   country: string;
   phone: string;
 }
+
+export interface IexEarning {
+  actualEPS: number;
+  consensusEPS: number;
+  announceTime: string;
+  numberOfEstimates: number,
+  EPSSurpriseDollar: number,
+  EPSReportDate: string;
+  fiscalPeriod: string;
+  fiscalEndDate: string;
+  yearAgo: number,
+  yearAgoChangePercent: number,
+}

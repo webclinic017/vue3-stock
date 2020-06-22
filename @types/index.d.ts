@@ -8,6 +8,7 @@ import {
   IexSymbol,
   IexDividend,
   IexCompany,
+  IexEarning,
 } from './iex'
 
 export interface StockDatum {
@@ -24,4 +25,5 @@ export {
   IexSymbol,
   IexDividend,
   IexCompany,
+  IexEarning,
 }

@@ -1,6 +1,6 @@
 import BaseClient from '../BaseClient';
-import { AxiosResponse } from 'axios';
-import { IexDividend, IexCompany, IexSymbol } from '@types';
+import { AxiosResponse, AxiosPromise } from 'axios';
+import { IexDividend, IexCompany, IexSymbol, IexEarning } from '@types';
 
 export default class IexCloudClient extends BaseClient {
   static create(
@@ -23,5 +23,13 @@ export default class IexCloudClient extends BaseClient {
 
   getDividends(symbol: string): Promise<AxiosResponse<IexDividend[]>> {
     return this.axios.get(`stock/${symbol}/dividends/1y?token=${this.token}`)
+  }
+
+  getEarnings(symbol: string, period: 'annual' | 'quarter' = 'quarter'): Promise<AxiosResponse<IexEarning[]>> {
+    return this.axios.get(`stock/${symbol}/earnings/`, {
+      params: {
+        period
+      }
+    })
   }
 }
