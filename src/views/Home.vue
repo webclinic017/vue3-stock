@@ -1,6 +1,9 @@
 <template>
   <v-container fluid>
     <v-row justify="center" class="home-layout">
+      <basic-bar-chart :data="monthlyDividend"></basic-bar-chart>
+    </v-row>
+    <v-row justify="center" class="home-layout">
       <dividend-card
         v-for="stock in stockList"
         :key="stock.symbol"
@@ -12,7 +15,10 @@
       <add-dividend-card @add="openSearchStockCard" />
     </v-row>
     <v-dialog v-model="showAddDialog" width="600">
-      <search-stock-card @addStock="addStock" />
+      <search-stock-card @addStock="addStock" v-if="showAddDialog === true" />
+    </v-dialog>
+    <v-dialog v-model="showStockInfoDialog" width="680">
+      <stock-info-card :stock="selectStock" v-if="showStockInfoDialog === true" />
     </v-dialog>
   </v-container>
 </template>
@@ -22,22 +28,48 @@ import { Component, Vue } from 'vue-property-decorator';
 import DividendCard from '../components/card/DividendCard.vue';
 import AddDividendCard from '../components/card/AddDividendCard.vue';
 import SearchStockCard from '../components/card/SearchStockCard.vue';
+import StockInfoCard from '../components/card/StockInfoCard.vue';
+import BasicBarChart from '../components/chartjs/BasicBarChart.vue';
 import { StockDatum } from '../../@types';
 import FirebaseClient from '../../api/firebase';
+import moment from 'moment';
 
 @Component({
   components: {
     AddDividendCard,
     DividendCard,
     SearchStockCard,
+    StockInfoCard,
+    BasicBarChart,
   },
 })
 export default class Home extends Vue {
   private showAddDialog = false;
 
-  private detailStockDialog = false;
+  private showStockInfoDialog = false;
 
   private selectStock!: StockDatum;
+
+  private monthList = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  private Q1 = ['January', 'April', 'July', 'October'];
+
+  private Q2 = ['February', 'May', 'August', 'November'];
+
+  private Q3 = ['March', 'June', 'September', 'December'];
 
   get stockList(): StockDatum[] {
     return this.$store.state.stock.stockList;
@@ -45,6 +77,50 @@ export default class Home extends Vue {
 
   get userUid(): string {
     return this.$store.state.user.user.uid;
+  }
+
+  get monthlyDividend(): number[] {
+    const chartData = new Map<string, number>();
+    this.monthList.forEach(month => {
+      chartData.set(month, 0);
+    });
+    this.stockList.forEach(stock => {
+      if (stock.dividend.length > 0) {
+        const firstDividend = stock.dividend[0];
+        // if (!firstDividend.frequency) {
+        //   return;
+        // }
+        if (firstDividend.frequency === 'monthly') {
+          chartData.forEach((value, index) => {
+            chartData.set(index, value + Number(firstDividend.amount));
+          });
+        } else if (firstDividend.frequency === 'quarterly') {
+          const standardMonth = moment(firstDividend.paymentDate).format(
+            'MMMM',
+          );
+
+          const isContainQ1 = this.Q1.indexOf(standardMonth) > -1;
+          const isContainQ2 = this.Q2.indexOf(standardMonth) > -1;
+          const isContainQ3 = this.Q3.indexOf(standardMonth) > -1;
+
+          const containQ = isContainQ1
+            ? this.Q1
+            : isContainQ2
+            ? this.Q2
+            : isContainQ3
+            ? this.Q3
+            : [];
+
+          containQ.forEach(month => {
+            chartData.set(
+              month,
+              (chartData.get(month) || 0) + Number(firstDividend.amount),
+            );
+          });
+        }
+      }
+    });
+    return Array.from(chartData.values());
   }
 
   async mounted() {
@@ -77,8 +153,8 @@ export default class Home extends Vue {
 
   public clickStockCard(stock: StockDatum) {
     if (stock) {
-      Object.assign(this.selectStock, stock);
-      this.detailStockDialog = true;
+      this.selectStock = stock;
+      this.showStockInfoDialog = true;
     }
   }
 }

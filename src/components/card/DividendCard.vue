@@ -8,12 +8,13 @@
       <v-row>
         <div>보유량: {{stock.holdings}}</div>
       </v-row>
-      <v-row>
+      <v-row v-if="lastDividendAmount">
         <div v-if="lastDividendAmount !== undefined">배당금 : {{ lastDividendAmount }}</div>
         <div v-else>배당금 : 알 수 없음</div>
       </v-row>
-      <v-row>
-        <div>배당주기 : {{ lastDividend.frequency }}</div>
+      <v-row v-if="lastDividend">
+        <div v-if="lastDividend.frequency !== undefined">배당주기 : {{ lastDividend.frequency }}</div>
+        <div v-else>배당주기 : 알 수 없음</div>
       </v-row>
       <v-row>
         <div>예상 배당금 : {{ expectedAmount }}</div>
