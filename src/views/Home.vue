@@ -15,7 +15,11 @@
       <add-dividend-card @add="openSearchStockCard" />
     </v-row>
     <v-dialog v-model="showAddDialog" width="600">
-      <search-stock-card @addStock="addStock" v-if="showAddDialog === true" />
+      <search-stock-card
+        @addStock="addStock"
+        @close="showAddDialog = false"
+        v-if="showAddDialog === true"
+      />
     </v-dialog>
     <v-dialog v-model="showStockInfoDialog" width="680">
       <stock-info-card :stock="selectStock" v-if="showStockInfoDialog === true" />
@@ -25,6 +29,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import moment from 'moment';
 import DividendCard from '../components/card/DividendCard.vue';
 import AddDividendCard from '../components/card/AddDividendCard.vue';
 import SearchStockCard from '../components/card/SearchStockCard.vue';
@@ -32,7 +37,6 @@ import StockInfoCard from '../components/card/StockInfoCard.vue';
 import BasicBarChart from '../components/chartjs/BasicBarChart.vue';
 import { StockDatum } from '../../@types';
 import FirebaseClient from '../../api/firebase';
-import moment from 'moment';
 
 @Component({
   components: {
@@ -81,15 +85,12 @@ export default class Home extends Vue {
 
   get monthlyDividend(): number[] {
     const chartData = new Map<string, number>();
-    this.monthList.forEach(month => {
+    this.monthList.forEach((month) => {
       chartData.set(month, 0);
     });
-    this.stockList.forEach(stock => {
+    this.stockList.forEach((stock) => {
       if (stock.dividend.length > 0) {
         const firstDividend = stock.dividend[0];
-        // if (!firstDividend.frequency) {
-        //   return;
-        // }
         if (firstDividend.frequency === 'monthly') {
           chartData.forEach((value, index) => {
             chartData.set(index, value + Number(firstDividend.amount));
@@ -103,15 +104,12 @@ export default class Home extends Vue {
           const isContainQ2 = this.Q2.indexOf(standardMonth) > -1;
           const isContainQ3 = this.Q3.indexOf(standardMonth) > -1;
 
-          const containQ = isContainQ1
-            ? this.Q1
-            : isContainQ2
-            ? this.Q2
-            : isContainQ3
-            ? this.Q3
-            : [];
+          let containQ: string[] = [];
+          if (isContainQ1) containQ = this.Q1;
+          if (isContainQ2) containQ = this.Q2;
+          if (isContainQ3) containQ = this.Q3;
 
-          containQ.forEach(month => {
+          containQ.forEach((month) => {
             chartData.set(
               month,
               (chartData.get(month) || 0) + Number(firstDividend.amount),
@@ -126,8 +124,8 @@ export default class Home extends Vue {
   async mounted() {
     if (this.userUid && this.stockList.length === 0) {
       const firebaseClient = new FirebaseClient();
-      firebaseClient.getStockDatum(this.userUid).then(querySnapshot => {
-        querySnapshot.docs.forEach(doc => {
+      firebaseClient.getStockDatum(this.userUid).then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
           this.$store.commit('stock/addStock', doc.data());
         });
       });

@@ -26,7 +26,7 @@
     </v-card-text>
     <v-card-text class="text-right">
       <v-btn class="mx-2" depressed color="primary" @click="addStock">추가</v-btn>
-      <v-btn class="mx-2" depressed>닫기</v-btn>
+      <v-btn class="mx-2" depressed @click="$emit('close')">닫기</v-btn>
     </v-card-text>
   </v-card>
 </template>
