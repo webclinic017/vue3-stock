@@ -32,8 +32,8 @@ export default Vue.extend({
 .add-dividend-card {
   padding: 4px;
   margin: 4px;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
 
   &:hover {
     cursor: pointer;

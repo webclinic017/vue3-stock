@@ -1,24 +1,51 @@
 <template>
   <v-card outlined class="dividend-card" @click="clickStockCard">
     <v-container>
-      <v-row row wrap align="center">
+      <v-row class="ma-0" wrap align="center">
         <img class="symbol-logo-img" :src="logo" alt="logo" />
         <div class="symbol-title">{{stock.symbol}}</div>
       </v-row>
-      <v-row>
-        <div>보유량: {{stock.holdings}}</div>
-      </v-row>
-      <v-row v-if="lastDividendAmount">
-        <div v-if="lastDividendAmount !== undefined">배당금 : {{ lastDividendAmount }}</div>
-        <div v-else>배당금 : 알 수 없음</div>
-      </v-row>
-      <v-row v-if="lastDividend">
-        <div v-if="lastDividend.frequency !== undefined">배당주기 : {{ lastDividend.frequency }}</div>
-        <div v-else>배당주기 : 알 수 없음</div>
-      </v-row>
-      <v-row>
-        <div>예상 배당금 : {{ expectedAmount }}</div>
-      </v-row>
+      <v-list dense>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>보유량</v-list-item-title>
+          </v-list-item-content>
+          <v-list--item-content class="align-end">
+            <v-list-item-title>{{stock.holdings}}</v-list-item-title>
+          </v-list--item-content>
+        </v-list-item>
+
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>예상 배당금</v-list-item-title>
+          </v-list-item-content>
+          <v-list--item-content class="align-end">
+            <v-list-item-title>
+              {{
+              lastDividendAmount !== undefined ? lastDividendAmount : '알 수 없음'
+              }}
+            </v-list-item-title>
+          </v-list--item-content>
+        </v-list-item>
+
+        <v-list-item v-if="lastDividend">
+          <v-list-item-content>
+            <v-list-item-title>배당주기</v-list-item-title>
+          </v-list-item-content>
+          <v-list--item-content class="align-end">
+            <v-list-item-title>{{ lastDividend.frequency !== undefined ? lastDividend.frequency : '알 수 없음' }}</v-list-item-title>
+          </v-list--item-content>
+        </v-list-item>
+
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>총 예상 배당금</v-list-item-title>
+          </v-list-item-content>
+          <v-list--item-content class="align-end">
+            <v-list-item-title>{{expectedAmount}}</v-list-item-title>
+          </v-list--item-content>
+        </v-list-item>
+      </v-list>
     </v-container>
     <div class="delete-div">
       <v-btn class="delete-btn" fab depressed color="red" dark @click.stop="deleteStock">
@@ -63,6 +90,15 @@ export default class DividendCard extends Vue {
     return undefined;
   }
 
+  get infoToArray() {
+    return [
+      { text: '보유량', value: 10 },
+      { text: '예상 배당금', value: 1 },
+      { text: '배당주기', value: 'monthly' },
+      { text: '', value: 10 },
+    ];
+  }
+
   public deleteStock() {
     this.$emit('deleteStock', this.stock.symbol);
   }
@@ -85,22 +121,29 @@ export default class DividendCard extends Vue {
 .dividend-card {
   padding: 4px;
   margin: 4px;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   &:hover {
     cursor: pointer;
+    border: 1px solid #99e9f2 !important;
     background: #ccc;
   }
-  .symbol-logo-img {
-    width: 32px;
-    height: 32px;
-  }
-  .symbol-title {
-    padding: 0 8px;
-    font-size: 18px;
-    font-weight: 700;
-    min-width: 120px;
-    max-width: 120px;
+  .container {
+    height: 100%;
+    .symbol-logo-img {
+      width: 32px;
+      height: 32px;
+    }
+    .symbol-title {
+      padding: 0 8px;
+      font-size: 18px;
+      font-weight: 700;
+      min-width: 120px;
+      max-width: 120px;
+    }
+    .v-list {
+      background: none;
+    }
   }
   .delete-div {
     position: absolute;
