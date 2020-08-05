@@ -4,9 +4,9 @@ import App from './App.vue';
 import router from './router';
 import { store } from './store';
 import vuetify from './plugins/vuetify';
+import firebaseConfig from '../firebase-config.json'
 
-const firebaseConfigString: string = process.env.VUE_APP_FIREBASE_CONFIG;
-firebase.initializeApp(JSON.parse(firebaseConfigString.replace(/(')/gi, '"')));
+firebase.initializeApp(firebaseConfig);
 
 Vue.config.productionTip = false;
 

@@ -23,7 +23,6 @@ pnpm-debug.log*
 *.sw?
 
 # key
-firebase-config.json
 firebase-debug.log
 
 # firebase
