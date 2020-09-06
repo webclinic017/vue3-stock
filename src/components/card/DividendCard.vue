@@ -10,40 +10,40 @@
           <v-list-item-content>
             <v-list-item-title>보유량</v-list-item-title>
           </v-list-item-content>
-          <v-list--item-content class="align-end">
+          <v-list-item-content class="align-end">
             <v-list-item-title>{{stock.holdings}}</v-list-item-title>
-          </v-list--item-content>
+          </v-list-item-content>
         </v-list-item>
 
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>예상 배당금</v-list-item-title>
           </v-list-item-content>
-          <v-list--item-content class="align-end">
+          <v-list-item-content class="align-end">
             <v-list-item-title>
               {{
               lastDividendAmount !== undefined ? lastDividendAmount : '알 수 없음'
               }}
             </v-list-item-title>
-          </v-list--item-content>
+          </v-list-item-content>
         </v-list-item>
 
         <v-list-item v-if="lastDividend">
           <v-list-item-content>
             <v-list-item-title>배당주기</v-list-item-title>
           </v-list-item-content>
-          <v-list--item-content class="align-end">
+          <v-list-item-content class="align-end">
             <v-list-item-title>{{ lastDividend.frequency !== undefined ? lastDividend.frequency : '알 수 없음' }}</v-list-item-title>
-          </v-list--item-content>
+          </v-list-item-content>
         </v-list-item>
 
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>총 예상 배당금</v-list-item-title>
           </v-list-item-content>
-          <v-list--item-content class="align-end">
+          <v-list-item-content class="align-end">
             <v-list-item-title>{{expectedAmount}}</v-list-item-title>
-          </v-list--item-content>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-container>
