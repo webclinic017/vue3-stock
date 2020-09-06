@@ -16,10 +16,6 @@ import { Vue } from 'vue-property-decorator';
 export default Vue.extend({
   name: 'DividendCard',
   data: () => ({}),
-  props: {
-    symbol: String,
-    logo: String,
-  },
   methods: {
     addStock: function addStock(symbol: string) {
       this.$emit('add', symbol);
