@@ -118,7 +118,9 @@ export default class Home extends Vue {
         }
       }
     });
-    return Array.from(chartData.values());
+    return Array.from(chartData.values()).map(
+      (value) => Math.floor(value * 100) / 100,
+    );
   }
 
   async mounted() {
