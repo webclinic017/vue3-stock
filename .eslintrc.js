@@ -23,6 +23,7 @@ module.exports = {
       ignoreStrings: true,
       ignoreTemplateLiterals: true,
     }],
+    '@typescript-eslint/no-var-requires': 'off',
     'object-curly-newline': 'off',
     'no-shadow': 'off',
     'no-param-reassign': 'off',

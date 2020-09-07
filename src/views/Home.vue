@@ -30,11 +30,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import moment from 'moment';
-import DividendCard from '../components/card/DividendCard.vue';
-import AddDividendCard from '../components/card/AddDividendCard.vue';
-import SearchStockCard from '../components/card/SearchStockCard.vue';
-import StockInfoCard from '../components/card/StockInfoCard.vue';
-import BasicBarChart from '../components/chartjs/BasicBarChart.vue';
+import DividendCard from '@/components/card/DividendCard.vue';
+import AddDividendCard from '@/components/card/AddDividendCard.vue';
+import SearchStockCard from '@/components/card/SearchStockCard.vue';
+import StockInfoCard from '@/components/card/StockInfoCard.vue';
+import BasicBarChart from '@/components/chartjs/BasicBarChart.vue';
 import { StockDatum } from '../../@types';
 import FirebaseClient from '../../api/firebase';
 
