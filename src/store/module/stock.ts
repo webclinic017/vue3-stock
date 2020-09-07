@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex, { MutationTree, ActionTree, GetterTree, Module } from 'vuex';
-import { IRootState, IStockState } from '../../../@types';
-import FirebaseClient from '../../../api/firebase';
-import IexCloudClient from '../../../api/IexCloud';
+import { IRootState, IStockState } from '@/@types';
+import FirebaseClient from '@/api/firebase';
+import IexCloudClient from '@/api/IexCloud';
 
 Vue.use(Vuex);
 

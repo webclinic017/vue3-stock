@@ -35,8 +35,8 @@ import AddDividendCard from '@/components/card/AddDividendCard.vue';
 import SearchStockCard from '@/components/card/SearchStockCard.vue';
 import StockInfoCard from '@/components/card/StockInfoCard.vue';
 import BasicBarChart from '@/components/chartjs/BasicBarChart.vue';
-import { StockDatum } from '../../@types';
-import FirebaseClient from '../../api/firebase';
+import { StockDatum } from '@/@types';
+import FirebaseClient from '@/api/firebase';
 
 @Component({
   components: {

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex, { GetterTree, MutationTree, ActionTree, ModuleTree } from 'vuex';
 import user from '@/store/module/user';
 import stock from '@/store/module/stock';
-import { IRootState } from '@types';
+import { IRootState } from '@/@types';
 
 Vue.use(Vuex);
 

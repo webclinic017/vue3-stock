@@ -1,18 +1,18 @@
-import { StockDatum, IexSymbol } from '@types';
+import { StockDatum, IexSymbol } from '@/@types';
 
-export interface IRootState {
+export interface RootState {
   token: string;
   loading: boolean;
 }
 
-export interface IUserState {
+export interface UserState {
   user: {
     name: string;
     uid: string;
   };
 }
 
-export interface IStockState {
+export interface StockState {
   stockList: StockDatum[];
   symbolList: IexSymbol[];
 }

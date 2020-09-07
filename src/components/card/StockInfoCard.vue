@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { StockDatum } from '../../../@types';
+import { StockDatum } from '@/@types';
 
 @Component({})
 export default class StockInfoCard extends Vue {

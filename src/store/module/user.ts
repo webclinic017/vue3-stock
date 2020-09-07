@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex, { GetterTree, MutationTree, ActionTree, Module } from 'vuex';
-import { IRootState, IUserState } from '@types';
+import { IRootState, IUserState } from '@/@types';
 
 Vue.use(Vuex);
 

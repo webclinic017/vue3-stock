@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from '../views/Home.vue';
-import Login from '../views/Login.vue';
+import Home from '@/views/Home.vue';
+import Login from '@/views/Login.vue';
 import * as NavigationGuardFunction from './NavigationGuard';
 
 

@@ -3,6 +3,7 @@ import { iexCloudBaseUrl } from '@/constants';
 
 export default class BaseClient {
   protected token: string;
+
   protected axios: AxiosInstance;
 
   constructor(

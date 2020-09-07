@@ -33,8 +33,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { StockDatum } from '../../../@types';
-import IexCloudClient from '../../../api/IexCloud';
+import { StockDatum } from '@/@types';
+import IexCloudClient from '@/api/IexCloud';
 @Component({})
 export default class SearchStockCard extends Vue {
   private searchSymbol = '';

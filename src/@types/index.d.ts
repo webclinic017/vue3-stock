@@ -1,7 +1,7 @@
 import {
-  IRootState,
-  IUserState,
-  IStockState,
+  RootState,
+  UserState,
+  StockState,
 } from './store';
 
 import {
@@ -19,9 +19,9 @@ export interface StockDatum {
 }
 
 export {
-  IRootState,
-  IUserState,
-  IStockState,
+  RootState as IRootState,
+  UserState as IUserState,
+  StockState as IStockState,
   IexSymbol,
   IexDividend,
   IexCompany,
