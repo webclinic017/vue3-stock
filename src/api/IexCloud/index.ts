@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { IexDividend, IexCompany, IexSymbol, IexEarning } from '@/@types';
 import BaseClient from '../BaseClient';
+import { IexPreviousPrice } from '@/@types/iex';
 
 export default class IexCloudClient extends BaseClient {
   static create(
@@ -31,5 +32,9 @@ export default class IexCloudClient extends BaseClient {
         period
       }
     })
+  }
+
+  getPreviousPrive(symbol: string): Promise<AxiosResponse<IexPreviousPrice>> {
+    return this.axios.get(`stock/${symbol}/previous`)
   }
 }
