@@ -24,7 +24,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { StockDatum } from '@/@types';
 import IexCloudClient from '@/api/IexCloud';
 import { IexPreviousPrice } from '@/@types/iex';
-
+import moment from 'moment';
 @Component({})
 export default class StockInfoCard extends Vue {
   @Prop() stock!: StockDatum;
@@ -33,6 +33,11 @@ export default class StockInfoCard extends Vue {
     if (this.stock.symbol) {
       await this.loadPreviousPrice(this.stock.symbol);
     }
+  }
+
+  get storageKey() {
+    const today = moment();
+    return `${this.stock.symbol}&${today.format('yyyy-MM-DD')}`;
   }
 
   private loading = false;
@@ -52,11 +57,19 @@ export default class StockInfoCard extends Vue {
   private previousPriceKeys = ['close'];
 
   async loadPreviousPrice(symbol: string) {
+    const localStoragePrice = window.localStorage.getItem(this.storageKey);
+    if (localStoragePrice) {
+      return (this.previousPrice = JSON.parse(localStoragePrice));
+    }
     const iexCloudClient = new IexCloudClient(
       process.env.VUE_APP_IEX_API_TOKEN,
     );
     const res = await iexCloudClient.getPreviousPrive(symbol);
     this.previousPrice = res.data;
+    window.localStorage.setItem(
+      this.storageKey,
+      JSON.stringify(this.previousPrice),
+    );
   }
 }
 </script>
